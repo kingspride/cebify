@@ -1,0 +1,6 @@
+<Files "dbconnect.php">  
+  Require all denied
+</Files>
+<Files "secrets.php">  
+  Require all denied
+</Files>

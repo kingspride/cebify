@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            var bchannel = new BroadcastChannel("spotifylogin");
+            var state = "";
+
+            bchannel.addEventListener("message", m => {
+                console.log(m.data);
+                if(m.data["state"] !== undefined){
+                    state = m.data["state"];
+                    if(state == getparams["state"]){
+                        bchannel.postMessage({loginaccesscode: getparams["code"]});
+                        console.log(getparams["code"]);
+                    }else{
+                        alert("Konnte Original-Fenster nicht finden!");
+                    }
+                    window.close();
+                }
+            });
+
+            function transformToAssocArray( prmstr ) {
+                var params = {};
+                var prmarr = prmstr.split("&");
+                for ( var i = 0; i < prmarr.length; i++) {
+                    var tmparr = prmarr[i].split("=");
+                    params[tmparr[0]] = tmparr[1];
+                }
+                return params;
+            }
+
+            function getSearchParameters() {
+                var prmstr = window.location.search.substr(1);
+                return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
+            }
+
+            var getparams = getSearchParameters();
+            bchannel.postMessage("getstate?");
+            console.log(getparams);
+            
+        </script>
+    </head>
+    <body>
+        <h1>You can close this window now.</h1>
+    </body>
+</html>

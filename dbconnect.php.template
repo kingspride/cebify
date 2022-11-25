@@ -1,0 +1,7 @@
+<?php
+    $dbhost = "localhost";
+    $dbuser = "<user>";
+    $dbpass = "<password>";
+    $db = "cebify";
+    $dbc = new mysqli($dbhost, $dbuser, $dbpass,$db) or die("Connect failed: %s\n". $conn -> error);
+?>
